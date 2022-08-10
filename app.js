@@ -7,7 +7,6 @@ function reverseString(string){
     
 
 }
-
 function isPalindrome(string){
     var reverse = reverseString(string);
 
@@ -17,7 +16,6 @@ function isPalindrome(string){
         return false;
     }
 }
-
 function convertDateToString(date){
     dateStr = {day:'', month:'', year:''};
 
@@ -40,7 +38,6 @@ function convertDateToString(date){
 
 
 }
-
 function possibleFormatsOfDate(date){
     dateStr = convertDateToString(date);
 
@@ -54,8 +51,6 @@ function possibleFormatsOfDate(date){
     return [ddmmyyyy,  mmddyyyy,  yyyymmdd, ddmmyy,  mmddyy,  yymmdd];
 
 }
-
-
 function checkPalindromeOnAll(date){
     palindromeOrNot = false;
 
@@ -69,7 +64,6 @@ function checkPalindromeOnAll(date){
     }
     return palindromeOrNot;
 }
-
 function isLeapYear(year){
 
     
@@ -84,13 +78,7 @@ function isLeapYear(year){
     return false;
     
 }
- 
 
-var date = {
-    day: 28,
-    month: 2,
-    year: 2001
-};
 
 function nextDate(date){
     var daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -135,24 +123,135 @@ function nextDate(date){
 
 }
 
-console.log(nextDate(date));
-// function getNextPalindrome(){
-
-// }
 
 
+function getNextPalindrome(date)
+{
+    count = 0;
+    theNextDate = nextDate(date);
+    while(1){
+        count = count + 1;
+        if(checkPalindromeOnAll(theNextDate)){
+            
+            break;
+        }else{
+            theNextDate = nextDate(theNextDate);
+        }
+    }
+
+    return [theNextDate, count];
+    
 
 
+}
 
 
+function previousDate(date){
+    var daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    var day = date.day - 1;
+    var month = date.month;
+    var year = date.year;
+
+    if(month === 1){
+        if(day<1){
+            day = 31;
+            month = 12;
+
+            
+            
+            year = year -1
+        }
+    }if(month === 3){
+        if(isLeapYear(year)){
+            if(day < 1){
+                day = 29;
+                month = month - 1;
+            }
+            
+        }else{
+            if(day < 1){
+                day = 28;
+                month = month -1;
+            }
+        }
+
+    }else{
+        if(daysInMonths[month-2]===31){
+            if(day<1){
+                day = 31;
+                month = month -1;
+
+            }
+
+            
+        }
+        if(daysInMonths[month-2]===30){
+            if(day<1){
+                day = 30;
+                month = month -1;
+
+            }
+           
+        }     
+    }
+
+    return {
+        day:day,
+        month:month,
+        year:year
+    };
 
 
+}
+
+function getPreviousPalindrome(date)
+{
+    count = 0;
+    thePreviousDate = previousDate(date);
+    while(1){
+        count = count - 1;
+        if(checkPalindromeOnAll(thePreviousDate)){
+            
+            break;
+        }else{
+            thePreviousDate = previousDate(thePreviousDate);
+        }
+    }
+
+    return [thePreviousDate, count];
+    
 
 
+}
+
+const inputBday = document.querySelector('#dateOfBirth');
+const checkBtn = document.querySelector('#btn-check');
 
 
+function clickHandler(e){
+    if(inputBday.value !== ' '){
+        var bdayString = inputBday.value;
+    
+    var elementsOfDate = bdayString.split('-');
+   console.log(elementsOfDate);
+    var date = {
+        day: Number(elementsOfDate[2]),
+        month: Number(elementsOfDate[1]),
+        year: Number(elementsOfDate[0])
+    };
+    console.log(date);
+
+    if(checkPalindromeOnAll(date)){
+        console.log("your bday is a palindrome")
+    }else{
+        console.log(getNextPalindrome(date));
+        console.log(getPreviousPalindrome(date));
+
+    }
+    }
 
 
-
-
-
+    
+}
+checkBtn.addEventListener("click", clickHandler);
