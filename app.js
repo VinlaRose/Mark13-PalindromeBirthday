@@ -218,9 +218,6 @@ function getPreviousPalindrome(date)
 
 
 }
-
-
-
 function clickHandler(e){
     if(inputBday.value !== ' ')
     {
