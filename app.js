@@ -1,10 +1,12 @@
+const inputBday = document.querySelector('#dateOfBirth');
+const checkBtn = document.querySelector('#btn-check');
+const printMsg = document.querySelector('#message');
+
 function reverseString(string){
     var listOfCharacters = string.split('');
     var reverseOfCharacters = listOfCharacters.reverse('');
     var reverse = reverseOfCharacters.join('');
     return reverse; 
-
-    
 
 }
 function isPalindrome(string){
@@ -78,8 +80,6 @@ function isLeapYear(year){
     return false;
     
 }
-
-
 function nextDate(date){
     var daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
@@ -122,9 +122,6 @@ function nextDate(date){
 
 
 }
-
-
-
 function getNextPalindrome(date)
 {
     count = 0;
@@ -144,8 +141,6 @@ function getNextPalindrome(date)
 
 
 }
-
-
 function previousDate(date){
     var daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
@@ -204,7 +199,6 @@ function previousDate(date){
 
 
 }
-
 function getPreviousPalindrome(date)
 {
     count = 0;
@@ -225,33 +219,33 @@ function getPreviousPalindrome(date)
 
 }
 
-const inputBday = document.querySelector('#dateOfBirth');
-const checkBtn = document.querySelector('#btn-check');
 
 
 function clickHandler(e){
-    if(inputBday.value !== ' '){
+    if(inputBday.value !== ' ')
+    {
         var bdayString = inputBday.value;
     
-    var elementsOfDate = bdayString.split('-');
-   console.log(elementsOfDate);
-    var date = {
-        day: Number(elementsOfDate[2]),
-        month: Number(elementsOfDate[1]),
-        year: Number(elementsOfDate[0])
-    };
-    console.log(date);
+        var elementsOfDate = bdayString.split('-');
+        console.log(elementsOfDate);
+        var date = {
+            day: Number(elementsOfDate[2]),
+            month: Number(elementsOfDate[1]),
+            year: Number(elementsOfDate[0])
+        };
+        console.log(date);
 
-    if(checkPalindromeOnAll(date)){
-        console.log("your bday is a palindrome")
-    }else{
-        console.log(getNextPalindrome(date));
-        console.log(getPreviousPalindrome(date));
+        if(checkPalindromeOnAll(date)){
+         printMsg.innerText = 'Wow! you were born on a palindrome birthdate.';
+        }else{
+            
+            const [newDate, count1 ] = getNextPalindrome(date);
+            const [oldDate, count2 ] = getPreviousPalindrome(date);
 
+            printMsg.innerText = `The next palindrome date is ${oldDate.day}-${oldDate.month}-${oldDate.year}, you missed by ${count2} days. The last palindrome date was ${newDate.day}-${newDate.month}-${newDate.year}, you missed by ${count1} days.`
+       
+          }
+        }
     }
-    }
 
-
-    
-}
 checkBtn.addEventListener("click", clickHandler);
