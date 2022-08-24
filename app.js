@@ -219,8 +219,9 @@ function getPreviousPalindrome(date)
 
 }
 function clickHandler(e){
-    if(inputBday.value !== ' ')
-    {
+    if(inputBday.value === ""){
+        printMsg.innerText = 'Enter a valid input. '
+    }else{
         var bdayString = inputBday.value;
     
         var elementsOfDate = bdayString.split('-');
